@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -127,3 +128,105 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored name
+  game_hash.each do |key, value|
+    value.each do |attribute, item|
+      if attribute == :players
+        item.each do |index|
+          index.each do |atr, val|
+            if atr == :player_name and val == name
+              return index[:points]
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+
+def shoe_size name
+  game_hash.each do |key, value|
+    value.each do |attribute, item|
+      if attribute == :players
+        item.each do |index|
+          index.each do |atr, val|
+            if atr == :player_name and val == name
+              return index[:shoe]
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+def team_colors name
+  game_hash.each do |key, value|
+    value.each do |attribute, item|
+      if attribute == :team_name and item == name
+        return value[:colors]
+      end
+    end
+  end
+end
+
+def team_names
+  teams = []
+    game_hash.each do |key, value|
+      value.each do |attribute, item|
+        if attribute == :team_name
+          teams << item
+        end
+      end
+    end
+
+    return teams
+end
+
+ # away: {
+  #     team_name: "Charlotte Hornets",
+  #     colors: ["Turquoise", "Purple"],
+  #     players: []
+  #   }
+
+
+def player_numbers name
+  players = []
+
+  game_hash.each do |team, data|
+    data.each do |attribute, value|
+      if attribute == :team_name and value == name
+        data[:players].each do |index|
+          index.each do |key, val|
+            if key == :number
+              players << val
+            end
+          end
+        end
+      end
+    end
+  end
+
+  return players
+end
+
+def player_stats name
+  stats = {}
+  game_hash.each do |key, value|
+    value.each do |attribute, item|
+      if attribute == :players
+        item.each do |index|
+          index.each do |atr, val|
+            if atr == :player_name and val == name
+              stats = index
+            end
+          end
+        end
+      end
+    end
+  end
+
+  return stats
+end
+binding.pry
